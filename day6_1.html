@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<script>
+"use strict";
+let output =
+`Time:        62     64     91     90
+Distance:   553   1010   1473   1074`
+let strs = output.split('\n');
+
+let day6 = () =>{
+    let pairs = [];
+
+    let time = strs[0].match(/\d+/g);
+
+    let dist = strs[1].match(/\d+/g);
+
+    return quadratic(time,dist).reduce((total, value)=>total*value)
+    
+}
+let quadratic = (time, dist) =>{
+    let record = [];
+    for(let i = 0; i< time.length; i++){
+        let press_plus = (-time[i]+(Math.sqrt(Math.pow(time[i],2)-4*-1*-dist[i])))/-2;
+        press_plus = Math.floor(press_plus)+1;
+        let press_minus = (-time[i]-(Math.sqrt(Math.pow(time[i],2)-4*-1*-dist[i])))/-2;
+        press_minus = Math.ceil(press_minus)-1;        
+        record.push(press_minus-press_plus+1)
+    }
+    return record    
+}
+
+console.log(day6())
+</script>
